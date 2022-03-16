@@ -1,0 +1,55 @@
+@import '../../styles/stylesheet.scss';
+
+.modalWrapper {
+  margin: auto auto;
+  width: 865px;
+  border-radius: 7px;
+  // padding: 34px 60px 44px;
+  background: $white;
+  position: relative;
+  &.unit-preview {
+    width: 360px;
+    .modalHeader {
+      align-items: flex-start;
+      .title {
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .closeIcon {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+  &.password-modal {
+    width: 420px;
+  }
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px 0px;
+    .title {
+      font-size: 32px;
+      color: $TextColor;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .closeIcon {
+      height: 20px;
+      width: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  .modalBody {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+  }
+}

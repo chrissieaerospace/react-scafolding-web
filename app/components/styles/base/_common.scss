@@ -1,0 +1,298 @@
+@import './mixins';
+@import '../stylesheet.scss';
+
+body {
+  background-color: $bgColor;
+  overflow-y: auto;
+  // .verticalScroll {
+  //   overflow-x: hidden;
+  //   overflow-y: auto;
+  //   -moz-appearance: none !important;
+  //   scrollbar-width: none;
+  // }
+  // .verticalScroll::-webkit-scrollbar {
+  //   width: 6px;
+  //   // display: none;
+  // }
+  // .verticalScroll::-webkit-scrollbar-track {
+  //   background-color: $Greys-C5 !important;
+  //   @include border-radius(10px);
+  // }
+
+  // .verticalScroll::-webkit-scrollbar-thumb {
+  //   background-color: $black;
+  //   @include border-radius(10px);
+  // }
+  @include screen_width(320px, 1024px) {
+    overflow-x: auto;
+  }
+}
+.ReactModal__Body--open {
+  height: 100vh;
+  overflow-y: auto;
+}
+img {
+  max-width: 100%;
+  // height: 100%;
+  // width: 100%;
+  vertical-align: inherit;
+}
+
+ul {
+  padding: 0px;
+  margin: 0px;
+  li {
+    list-style-type: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a,
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.btn-wrapper {
+  @include flex(space-between);
+  width: 100%;
+  margin-bottom: 32px;
+}
+.footer-btn-wrapper {
+  @include flex();
+  justify-content: flex-end;
+  width: 100%;
+  margin: 24px 0px 24px auto;
+}
+.progressbar {
+  height: 6px;
+  background-color: rgba(0, 112, 74, 0.1);
+  border-radius: 10px;
+  .progressbar-green {
+    height: 6px;
+    background-color: #00704a;
+    border-radius: 10px;
+  }
+}
+
+.main-container {
+  width: 100%;
+  background-color: $white;
+  .auth-header {
+    @include flex(space-between);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.06);
+    padding: 15px 20px;
+    .logo {
+      width: 140px;
+      height: 40px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+    .profile-wrapper {
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      background-color: $Greys-C3;
+      @include border-radius(30px);
+      padding: 8px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  .wrapper {
+    margin: 40px auto;
+    @include flex(column);
+    justify-content: center;
+    width: 43%;
+  }
+  .body-wrapper {
+    background-color: $bgColor;
+    padding: 40px;
+    .wrapper {
+      padding: 50px 40px;
+      margin: 0px auto;
+      background-color: $white;
+      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.06);
+      border-radius: 10px;
+      width: 52%;
+    }
+    .icon-info-wrapper {
+      background-color: $white;
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      bottom: 34px;
+      right: 0px;
+      padding: 20px;
+      border-radius: 6px;
+      @include font-size(14px);
+      color: $PrimaryTextColor;
+      font-weight: 400;
+    }
+    @include screen_width(320px, 1024px) {
+      padding: 30px;
+      .wrapper {
+        width: 90%;
+      }
+    }
+  }
+}
+.auth-container {
+  background-color: $bgColor;
+  min-height: 100vh;
+  @include flex(column);
+  @include flex(center);
+  padding-bottom: 30px;
+  .main-section {
+    @include flex(column);
+    align-items: center;
+    padding: 40px;
+    background-color: $white;
+    width: 29%;
+    min-height: 68vh;
+    @include border-radius(12px);
+    .image-wrapper {
+      height: 80px;
+      width: 80px;
+      // @include border-radius(50%);
+      // background-color: rgba(100, 114, 136, 0.12);
+      margin-bottom: 32px;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        // @include border-radius(50%);
+      }
+    }
+    .add-profile {
+      height: 100px;
+      width: 100px;
+      cursor: pointer;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  ul {
+    @include flex(center);
+    @include flex(wrap);
+    width: 30%;
+    margin-top: 32px;
+    li {
+      @include font-size(14px);
+      color: $TextColorLight;
+      font-weight: 400;
+      margin-right: 25px;
+      cursor: pointer;
+    }
+  }
+  @include screen_width(320px, 1024px) {
+    .main-section {
+      width: 90%;
+    }
+  }
+}
+.customize-link {
+  font-size: 12px;
+  color: $primaryColor;
+  font-weight: 400;
+  cursor: pointer;
+}
+.text-lg {
+  @include font-size(26px);
+  color: $TextColor;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+}
+.text-md,
+.text-sm,
+.text-xs {
+  @include font-size(16px);
+  color: $TextColorLight;
+  font-weight: 500;
+  text-align: center;
+}
+.text-sm {
+  @include font-size(14px);
+}
+.text-xs {
+  @include font-size(12px);
+  font-weight: 400;
+}
+.text-bold-md {
+  @include font-size(16px);
+  color: $black;
+  font-weight: 700;
+  // margin-bottom: 5px;
+}
+.label {
+  @include font-size(16px);
+  color: $SecondaryTextColor;
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.overflowScroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -moz-appearance: none !important;
+  scrollbar-width: none;
+}
+
+.noMarginBottom {
+  margin-bottom: 0px;
+}
+
+.overflowScroll::-webkit-scrollbar {
+  display: none; // Safari ,firefox and Chrome
+}
+
+.overflowScroll::-webkit-scrollbar-track {
+  background-color: $black;
+}
+
+.overflowScroll::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 16px;
+  border: 5px solid $black;
+}
+
+.overflowScroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+.overflowScroll::-webkit-resizer {
+  display: none;
+}
+
+.main {
+  margin-top: 60px;
+}
+.responsive-center {
+  max-width: 1440px;
+  margin: 0px auto;
+}

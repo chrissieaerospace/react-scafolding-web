@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400;
+  -webkit-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', sans-serif !important;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  line-height: 1;
+}
+ul {
+  margin: 0;
+}
+input {
+  border: 0px;
+  font-size: 16px;
+  &:focus {
+    outline: none;
+  }
+}
+button {
+  width: auto;
+}
+html {
+  --antd-wave-shadow-color: none;
+}
+a {
+  cursor: pointer;
+  font-size: 14px;
+  color: #1587c6 !important;
+  font-weight: 400;
+  text-decoration: underline !important;
+  text-transform: capitalize;
+  // &:hover {
+  //   color: #1587c6;
+  // }
+}
+.Toastify__close-button {
+  width: 15px !important;
+}
+.tox-statusbar__branding {
+  display: none;
+}
+
+.ReactModal__Body--open {
+  overflow: hidden !important;
+  overflow-y: hidden !important;
+}
+.ant-upload-list {
+  display: none;
+}
+
+.ant-upload.ant-upload-drag {
+  height: 300px;
+}

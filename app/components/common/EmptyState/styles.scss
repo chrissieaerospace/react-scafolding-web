@@ -1,0 +1,32 @@
+@import "../../styles/stylesheet.scss";
+@import "../../styles/base/mixins";
+
+.empty-wrapper {
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 70px 0px;
+  .image-wrapper {
+    height: 133px;
+    width: 133px;
+    margin-bottom: 20px;
+    padding: 30px;
+    background-color: rgba(190, 196, 204, 0.05);
+    @include border-radius(50%);
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      @include border-radius(50%);
+    }
+  }
+  .empty-heading {
+    font-size: 16px;
+    color: #bec4cc;
+    font-weight: 400;
+    line-height: 30px;
+    margin-bottom: 10px;
+  }
+}

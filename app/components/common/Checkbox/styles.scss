@@ -1,0 +1,85 @@
+@import '../../styles/stylesheet.scss';
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  // padding-bottom: 18px;
+  input {
+    position: absolute;
+    left: -999px;
+  }
+
+  label {
+    position: relative;
+    padding-left: 25px;
+    font-size: 14px;
+    color: #333333;
+    font-weight: 500;
+    line-height: 20px;
+
+    &::before {
+      content: '';
+      height: 20px;
+      width: 20px;
+      background-color: $white;
+      border: 1px solid $Greys-C5;
+      border-radius: 3px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      cursor: pointer;
+    }
+  }
+
+  input[type='Checkbox'] {
+    position: absolute;
+    left: -99999px;
+    display: none;
+
+    &:checked + label {
+      &::before {
+        background-color: #aa71ff;
+        border: 1px solid #aa71ff;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      &::after {
+        position: absolute;
+        content: '';
+        left: -3px;
+        top: -15px;
+        width: 10px;
+        height: 5px;
+        border-width: 0 0 1.5px 1.5px;
+        border-style: solid;
+        border-color: $white;
+        transform: rotate(-45deg) translate(-10px, 20px);
+      }
+    }
+  }
+  &.disabled {
+    input,
+    label {
+      cursor: not-allowed;
+    }
+  }
+  // @include screen_maxWidth(768px) {
+  //   label {
+  //     font-size: 13px;
+  //     line-height: 18px;
+  //   }
+  // }
+}
+
+.checkboxdisabled {
+  label {
+    &::before {
+      background-color: $Greys-C8;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+}
