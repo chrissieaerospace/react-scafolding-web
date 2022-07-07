@@ -8,14 +8,4 @@ export {
 export {
   useUnitListingHook,
   useCreateUnitHook,
-  useCreateLessonHook,
-  useLessonListingHook,
-  useCreateVideoAssesment,
-  useVideoListingHook,
-  useStudentListingHook,
-  usePeerListingHook,
-  useCreateStudentAssesment,
-  useQuestionPreparingHook,
-  useCreateLocomotiveHook,
-  useProgressionListHook,
 } from './Dashboard';
