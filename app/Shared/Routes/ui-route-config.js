@@ -2,14 +2,14 @@
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-
+import { LANDING_PAGE } from './routeConstants'; './routeConstants'
 const ENABLE_AUTH = false;
 // const ENABLE_RESTRICT_ROUTE = true;
 // const ENABLE_LOGIN_REDIRECT = true;
 
 export default [
   {
-    path: '/',
+    path: LANDING_PAGE,
     auth: ENABLE_AUTH,
     exact: true,
     component: HomePage,

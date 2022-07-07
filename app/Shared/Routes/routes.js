@@ -21,43 +21,7 @@ import history from 'utils/history';
 // Routes
 
 let initial = true;
-// const customStyles = {
-//   content: {
-//     top: 0,
-//     left: 0,
-//     right: 0,
-//     bottom: 0,
-//     // margin: 0,
-//     // padding: 0,
-//     border: 'none',
-//     borderRadius: 0,
-//     background: 'none',
-//   },
-//   overlay: {
-//     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-//   },
-// };
-let bannerId = window.localStorage.getItem('banner');
-if (bannerId) bannerId = JSON.parse(bannerId);
-// const setStorage = id => {
-//   window.localStorage.setItem(
-//     'banner',
-//     JSON.stringify((bannerId || []).concat([id])),
-//   );
-// };
-// const push = (id, filter, setBannerModal) => () => {
-//   setStorage(id);
-//   setBannerModal(false);
-//   history.push({
-//     pathname: routesConstants.UNIT_LISTING,
-//     search: encodeURIComponent(
-//       Qs.stringify({
-//         type: filter.split(',').map(e => e.trim()),
-//         sort_by: 'demand',
-//       }),
-//     ),
-//   });
-// };
+
 const Routes = props => {
   // console.log(status);
   const { isLoggedIn, profile, ...restProps } = props;
@@ -66,96 +30,13 @@ const Routes = props => {
   // const [isMobile] = useMobileHeaderVisibility();
   // eslint-disable-next-line no-unused-vars
   // const { authentication: { authorization, isLoggedIn, profile } = {} } = props;
-  // const [modal, setModal] = useState(false);
-  // const [bannerModal, setBannerModal] = useState(true);
-  delete restProps.routes;
+  
   useEffect(() => {
     // window.scrollTo(0, 0);
   }, [history.location.key]);
-
-  // useEffect(() => {
-  //   props.LIST_ALL_UNIT_FILTER_CARDS_API_CALL({
-  //     query: {
-  //       type: 'group_3',
-  //     },
-  //     filter: ['banner'],
-  //   });
-  // }, []);
-
-  // const banner = useMemo(
-  //   () =>
-  //     props.getData(props.dashboard.LIST_ALL_UNIT_FILTER_CARDS_API, [], false, [
-  //       'banner',
-  //     ]),
-  //   [props.dashboard.LIST_ALL_UNIT_FILTER_CARDS_API],
-  // );
-  // const onModalToggle = useCallback(() => {
-  //   setModal(!modal);
-  //   history.goBack();
-  // }, [modal]);
-  // useEffect(() => {
-  //   setModal(true);
-  // }, [history.location.key]);
   return (
     <React.Fragment>
-      {/* {banner.data.length > 0 &&
-        isLoggedIn &&
-        !(bannerId || []).includes(banner.data[0].id) && (
-          <Modal
-            isOpen={isMobile ? false : bannerModal}
-            LightBoxClose={false}
-            color="black"
-            onClose={() => {
-              setStorage(banner.data[0].id);
-              setBannerModal(false);
-            }}
-            marginBottom="30px"
-            isScrollable
-            classname="LightBox"
-            isAddpropertyHeader
-            rootClassName="lightBoxModal"
-          >
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '0px',
-                marginTop: '30px',
-                width: '100%',
-                height: '100%',
-              }}
-            >
-              <img
-                srcSet={banner.data[0].url}
-                alt=""
-                onClick={push(
-                  banner.data[0].id,
-                  banner.data[0].filter_value,
-                  setBannerModal,
-                )}
-              />
-            </div>
-          </Modal>
-        )} */}
-      {/* {authorization && query.header !== 'false' && (
-        <Header
-          headerProfile={isLoggedIn}
-          arrowdown
-          language
-          key={isLoggedIn}
-          // search={route.search}
-          login={!isLoggedIn}
-          profile={profile}
-          history={history}
-          languages={languages}
-          // path={route.path}
-          {...props}
-        />
-      )}
-      {(authorization && ( */}
-      {/* {isLoggedIn && <Header profile={profile} />} */}
-      {/* {isLoggedIn && <Menu />} */}
+    
       <Switch>
         {props.routes.map(route => (
           <Route
