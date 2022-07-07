@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
 /* eslint-disable no-restricted-syntax */
@@ -16,6 +17,7 @@ const getPlatformBasedFieldName = e =>
 
 const useFormValidationHandlerHook = ({
   VALIDATOR: Validate = Validator,
+  initialValues = {},
   FORM_CONFIG = {},
   ON_CHANGE_KEY = ON_CHANGE,
   ON_BLUR_KEY = ON_BLUR,
@@ -28,7 +30,9 @@ const useFormValidationHandlerHook = ({
     Object.entries(formConfig || {}).reduce(
       (acc, [key, val = {}]) =>
         newObject(acc, {
-          [key]: Object.hasOwn(val, 'default') ? val.default : '',
+          [key]:
+            initialValues[key] ||
+            (Object.hasOwnProperty(val, 'default') ? val.default : ''),
         }),
       {},
     ),
@@ -44,18 +48,29 @@ const useFormValidationHandlerHook = ({
     (__value, key, isSetValue, isSetError, _config, isTrim = false) => {
       let value = __value;
       let error = null;
+      let maxError = null;
       const config = _config || formRef.current.formConfig[key] || {};
-      if (config.maxLength && __value.length > config.maxLength) return;
+      if (config.maxLength && __value.length > config.maxLength) {
+        maxError =
+          (config.message && config.message.maxLength) ||
+          `maximum ${config.maxLength} characters are allowed`;
+        value = value.slice(0, config.maxLength);
+        // return;
+      }
       if (
         typeof config.trim !== 'undefined' ? config.trim : config.trim || isTrim
       )
         value = trimStrings(value, config.isNumber);
       if (config)
-        error = Validate(value, config.type, {
-          optional: config.optional,
-          minLength: config.minLength,
-          ...config,
-        });
+        error =
+          Validate(value, config.type, {
+            optional: config.optional,
+            minLength: config.minLength,
+            message: config.message,
+            maxLength: config.maxLength,
+            length: config.length,
+            ...config,
+          }) || maxError;
       if (
         key &&
         isSetValue &&
@@ -117,13 +132,13 @@ const useFormValidationHandlerHook = ({
   }, []);
 
   const validateForm = useCallback(
-    (
+    ({
       isSetError,
-      __FORM_CONFIG = {},
-      __values = {},
-      __errors = {},
+      formConfig: __FORM_CONFIG = {},
+      values: __values = {},
+      errors: __errors = {},
       isNewFormConfig,
-    ) => {
+    }) => {
       const _FORM_CONFIG = isNewFormConfig
         ? __FORM_CONFIG
         : newObject(formRef.current.formConfig, __FORM_CONFIG);
@@ -191,7 +206,8 @@ const useFormValidationHandlerHook = ({
   );
 
   const onValidateCustomObject = useCallback(
-    (value, config) => validateForm(false, values, config),
+    (value, config) =>
+      validateForm({ isSetError: false, values: value, formConfig: config }),
     [],
   );
 
@@ -232,6 +248,20 @@ const useFormValidationHandlerHook = ({
     setValues(_values);
   }, []);
 
+  const resetForm = useCallback(() => {
+    const _values = Object.entries(formConfig || {}).reduce(
+      (acc, [key, val = {}]) =>
+        newObject(acc, {
+          [key]:
+            initialValues[key] ||
+            (Object.hasOwnProperty(val, 'default') ? val.default : ''),
+        }),
+      {},
+    );
+    setValues(_values);
+    setErrors({});
+  }, []);
+
   formRef.current.commonInputProps = commonInputProps;
   formRef.current.setInitialFormData = setInitialFormData;
   formRef.current.validateForm = validateForm;
@@ -243,6 +273,8 @@ const useFormValidationHandlerHook = ({
   formRef.current.addFormConfig = onAddFormConfig;
   formRef.current.validateCustomForm = validateCustomForm;
   formRef.current.lastUpdated = generateTimeStamp();
+  formRef.current.setErrors = setErrors;
+  formRef.current.resetForm = resetForm;
 
   return {
     validateCustomObject: onValidateCustomObject,
@@ -257,6 +289,7 @@ const useFormValidationHandlerHook = ({
     validateValue,
     onBlurValues,
     validateForm,
+    resetForm,
     setValues,
     setErrors,
     errors,

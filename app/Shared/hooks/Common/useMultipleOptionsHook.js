@@ -77,6 +77,7 @@ const useMultipleOptionsHook = (initialValue = {}) => {
           if (isSetError && index === key.length - 1) {
             setOptions(___val);
           }
+
           const errorLength = error.filter(e =>
             typeOf(e) === 'object' ? findRecursiveError(e) : e,
           ).length;
@@ -107,7 +108,9 @@ const useMultipleOptionsHook = (initialValue = {}) => {
       ___val[key] = validatedValue;
       setOptions(___val);
     }
-    const errorLength = error.filter(e => e).length;
+    const errorLength = error.filter(e =>
+      typeOf(e) === 'object' ? findRecursiveError(e) : e,
+    ).length;
     return {
       error,
       value,
