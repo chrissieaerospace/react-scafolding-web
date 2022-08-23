@@ -30,13 +30,12 @@ const Routes = props => {
   // const [isMobile] = useMobileHeaderVisibility();
   // eslint-disable-next-line no-unused-vars
   // const { authentication: { authorization, isLoggedIn, profile } = {} } = props;
-  
+
   useEffect(() => {
     // window.scrollTo(0, 0);
   }, [history.location.key]);
   return (
     <React.Fragment>
-    
       <Switch>
         {props.routes.map(route => (
           <Route

@@ -10,7 +10,7 @@ import '@babel/polyfill';
 
 // Import all the third party stuff
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 // import { ConnectedRouter } from 'connected-react-router';
 import { Router } from 'react-router-dom';
@@ -30,6 +30,7 @@ import 'file-loader?name=.htaccess!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 // import FontFaceObserver from 'fontfaceobserver';
 import configureStore from './configureStore';
+import reportWebVitals from './reportWebVitals';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -38,9 +39,10 @@ import { translationMessages } from './i18n';
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
+const Root = ReactDOM.createRoot(document.getElementById('app'));
 
 const render = messages => {
-  ReactDOM.render(
+  Root.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         {/* <ConnectedRouter history={history}> */}
@@ -50,7 +52,6 @@ const render = messages => {
         {/* </ConnectedRouter> */}
       </LanguageProvider>
     </Provider>,
-    MOUNT_NODE,
   );
 };
 
@@ -84,3 +85,4 @@ if (!window.Intl) {
 if (process.env.NODE_ENV === 'production') {
   require('offline-plugin/runtime').install(); // eslint-disable-line global-require
 }
+reportWebVitals();
