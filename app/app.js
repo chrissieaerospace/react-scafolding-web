@@ -11,6 +11,7 @@ import '@babel/polyfill';
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import DOM from 'react-dom';
 import { Provider } from 'react-redux';
 // import { ConnectedRouter } from 'connected-react-router';
 import { Router } from 'react-router-dom';
@@ -60,7 +61,7 @@ if (module.hot) {
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
   module.hot.accept(['./i18n', 'containers/App'], () => {
-    ReactDOM.unmountComponentAtNode(MOUNT_NODE);
+    DOM.unmountComponentAtNode(MOUNT_NODE);
     render(translationMessages);
   });
 }
