@@ -22,12 +22,12 @@ const constantReducer = ({
   state,
   // action,
   // constants,
-  initialState,
-  resetState,
+  // initialState,
+  // resetState,
 }) => {
   switch (type) {
-    case 'LOGOUT':
-      return { ...resetState, ...initialState };
+    // case 'LOGOUT':
+    //   return { ...resetState, ...initialState };
     default:
       return state;
   }

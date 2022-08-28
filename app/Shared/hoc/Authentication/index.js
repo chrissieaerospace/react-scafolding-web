@@ -52,13 +52,13 @@ const reducer = ({
     //     default:
     //       return defaultReducerHandler(); // for handling others such as Error
     //   }
-    case constants.LOGOUT_API[CALL]:
-      switch (method) {
-        case ON_SUCCESS:
-          return { ...resetState, ...initialState };
-        default:
-          return defaultReducerHandler(); // for handling others such as Error
-      }
+    // case constants.LOGOUT_API[CALL]:
+    //   switch (method) {
+    //     case ON_SUCCESS:
+    //       return { ...resetState, ...initialState };
+    //     default:
+    //       return defaultReducerHandler(); // for handling others such as Error
+    //   }
     default:
       return defaultReducerHandler();
   }

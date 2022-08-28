@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
@@ -6,14 +7,25 @@
 import { useState, useCallback, useRef } from 'react';
 import { newObject } from 'react-boilerplate-redux-saga-hoc/utils';
 import { generateTimeStamp } from 'react-boilerplate-redux-saga-hoc';
+// import isEqual from 'lodash/isEqual';
 import { ON_CHANGE, ON_BLUR, VALUE, ERROR } from './constants';
-import { trimStrings } from '../../utils/utilFunctions';
+import { trimStrings } from '../../../utils/utilFunctions';
 import Validator from './validator';
 
 const getPlatformBasedFieldValue = e =>
-  e && typeof e === 'object' && e.target ? e.target.value : e;
+  e &&
+  typeof e === 'object' &&
+  e.target &&
+  typeof e.preventDefault === 'function'
+    ? e.target.value
+    : e;
 const getPlatformBasedFieldName = e =>
-  e && typeof e === 'object' && e.target ? e.target.name : '';
+  e &&
+  typeof e === 'object' &&
+  e.target &&
+  typeof e.preventDefault === 'function'
+    ? e.target.name
+    : '';
 
 const useFormValidationHandlerHook = ({
   VALIDATOR: Validate = Validator,
@@ -26,18 +38,18 @@ const useFormValidationHandlerHook = ({
 } = {}) => {
   const [formConfig, setFormConfig] = useState(FORM_CONFIG);
   const formRef = useRef({});
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState(() =>
     Object.entries(formConfig || {}).reduce(
       (acc, [key, val = {}]) =>
         newObject(acc, {
           [key]:
             initialValues[key] ||
-            (Object.hasOwnProperty(val, 'default') ? val.default : ''),
+            (typeof val.default !== 'undefined' ? val.default : ''),
         }),
       {},
     ),
   );
-  const [errors, setErrors] = useState({});
 
   formRef.current.values = values;
   formRef.current.errors = errors;
@@ -50,10 +62,11 @@ const useFormValidationHandlerHook = ({
       let error = null;
       let maxError = null;
       const config = _config || formRef.current.formConfig[key] || {};
-      if (config.maxLength && __value.length > config.maxLength) {
+      if (config.maxLength && (__value || '').length > config.maxLength) {
         maxError =
-          (config.message && config.message.maxLength) ||
-          `maximum ${config.maxLength} characters are allowed`;
+          typeof (config.message && config.message.maxLength) !== 'undefined'
+            ? config.message.maxLength
+            : `maximum ${config.message.maxLength} characters are allowed`;
         value = value.slice(0, config.maxLength);
         // return;
       }
@@ -61,9 +74,10 @@ const useFormValidationHandlerHook = ({
         typeof config.trim !== 'undefined' ? config.trim : config.trim || isTrim
       )
         value = trimStrings(value, config.isNumber);
-      if (config)
+      if (config) {
         error =
           Validate(value, config.type, {
+            key,
             optional: config.optional,
             minLength: config.minLength,
             message: config.message,
@@ -71,16 +85,38 @@ const useFormValidationHandlerHook = ({
             length: config.length,
             ...config,
           }) || maxError;
-      if (
-        key &&
-        isSetValue &&
-        (config.allowOnlyNumber ? !Number.isNaN(+value) : true)
-      )
-        setValues(_value => newObject(_value, { [key]: value }));
+        if (
+          value &&
+          config.match &&
+          typeof config.match === 'string' &&
+          formRef.current.values[config.match]
+        )
+          error =
+            formRef.current.values[config.match] !== value
+              ? typeof (config.message && config.message.match) !== 'undefined'
+                ? config.message.match
+                : `${key} not matching with ${config.match}`
+              : maxError;
+      }
+
+      if (key && isSetValue)
+        if (config.allowOnlyNumber)
+          if (!Number.isNaN(+value))
+            setValues(_value => newObject(_value, { [key]: value }));
+          else
+            error =
+              typeof (config.message && config.message.allowOnlyNumber) !==
+              'undefined'
+                ? config.message && config.message.allowOnlyNumber
+                : 'Only numbers are allowed';
+        else setValues(_value => newObject(_value, { [key]: value }));
+
       if (!isSetError) return { error, value, key };
+
       if (key)
         if (error) setErrors(_errors => newObject(_errors, { [key]: error }));
         else setErrors(_errors => newObject(_errors, { [key]: null }));
+
       return { error, value, key };
     },
     [],
@@ -99,6 +135,7 @@ const useFormValidationHandlerHook = ({
         trim,
       } = {},
     ) => {
+      formRef.current.isFormChanged = true;
       if (e && typeof e.preventDefault === 'function') e.preventDefault();
       if (e && isStopPropagation && typeof e.stopPropagation === 'function')
         e.stopPropagation();
@@ -108,7 +145,14 @@ const useFormValidationHandlerHook = ({
       const KEY = key || _key;
       if (isValidateOnly || !KEY)
         return validateValue(value, KEY, null, null, config, trim);
-      validateValue(value, KEY, true, isSetError, undefined, trim);
+      validateValue(
+        value,
+        KEY,
+        true,
+        isSetError === undefined ? true : isSetError,
+        undefined,
+        trim,
+      );
     },
     [],
   );
@@ -124,11 +168,12 @@ const useFormValidationHandlerHook = ({
     [],
   );
 
-  const onBlurValues = useCallback((e, key) => {
+  const onBlurValues = useCallback((e, key, config = {}) => {
     const _key = getPlatformBasedFieldName(e);
     const KEY = key || _key;
     const value = formRef.current.values[KEY];
-    validateValue(value, KEY, false, true);
+    if (config.isValidateOnBlur === undefined ? true : config.isValidateOnBlur)
+      validateValue(value, KEY, false, true);
   }, []);
 
   const validateForm = useCallback(
@@ -138,7 +183,7 @@ const useFormValidationHandlerHook = ({
       values: __values = {},
       errors: __errors = {},
       isNewFormConfig,
-    }) => {
+    } = {}) => {
       const _FORM_CONFIG = isNewFormConfig
         ? __FORM_CONFIG
         : newObject(formRef.current.formConfig, __FORM_CONFIG);
@@ -211,23 +256,38 @@ const useFormValidationHandlerHook = ({
     [],
   );
 
-  const onAddFormConfig = useCallback(
-    config => setFormConfig(_formConfig => newObject({}, _formConfig, config)),
-    [],
-  );
+  const onAddFormConfig = useCallback((config, isNew, isReset) => {
+    setFormConfig(_formConfig =>
+      newObject({}, isNew ? {} : _formConfig, config),
+    );
+    const newVal = Object.entries(config || {}).reduce(
+      (acc, [key, val = {}]) =>
+        newObject(acc, {
+          [key]:
+            initialValues[key] ||
+            (!isReset && formRef.current.values[key]) ||
+            (typeof val.default !== 'undefined' ? val.default : ''),
+        }),
+      {},
+    );
+    setValues(_val => ({ ..._val, ...newVal }));
+  }, []);
 
   const commonInputProps = useCallback(
     (
       key,
       {
-        onChange = ON_CHANGE_KEY,
-        onBlur = ON_BLUR_KEY,
-        value = VALUE_KEY,
-        error = ERROR_KEY,
+        config,
+        propKeyMap: {
+          onChange = ON_CHANGE_KEY,
+          onBlur = ON_BLUR_KEY,
+          value = VALUE_KEY,
+          error = ERROR_KEY,
+        } = {},
       } = {},
     ) => ({
-      [onChange]: e => onChangeValues(e, key),
-      [onBlur]: e => onBlurValues(e, key),
+      [onChange]: e => onChangeValues(e, key, config),
+      [onBlur]: e => onBlurValues(e, key, config),
       [value]: formRef.current.values[key],
       [error]: formRef.current.errors[key],
     }),
@@ -243,7 +303,7 @@ const useFormValidationHandlerHook = ({
               ? data[key] || ''
               : formRef.current.values[key],
         }),
-      [],
+      {},
     );
     setValues(_values);
   }, []);
@@ -254,7 +314,7 @@ const useFormValidationHandlerHook = ({
         newObject(acc, {
           [key]:
             initialValues[key] ||
-            (Object.hasOwnProperty(val, 'default') ? val.default : ''),
+            (typeof val.default !== 'undefined' ? val.default : ''),
         }),
       {},
     );
@@ -262,21 +322,30 @@ const useFormValidationHandlerHook = ({
     setErrors({});
   }, []);
 
+  // const isFormChanged = useCallback(
+  //   () => !isEqual(formRef.current.initialLoadValues, formRef.current.values),
+  //   [],
+  // );
+
   formRef.current.commonInputProps = commonInputProps;
   formRef.current.setInitialFormData = setInitialFormData;
-  formRef.current.validateForm = validateForm;
+  // formRef.current.validateForm = validateForm;
   formRef.current.onBlurValues = onBlurValues;
   formRef.current.onChangeValues = onChangeValues;
   formRef.current.onValidateValues = onValidateValues;
   formRef.current.validateForm = validateForm;
   formRef.current.validateObject = onValidateCustomObject;
   formRef.current.addFormConfig = onAddFormConfig;
+  formRef.current.modifyFormConfig = onAddFormConfig;
   formRef.current.validateCustomForm = validateCustomForm;
   formRef.current.lastUpdated = generateTimeStamp();
   formRef.current.setErrors = setErrors;
   formRef.current.resetForm = resetForm;
+  formRef.current.setValues = setValues;
+  // formRef.current.isFormChanged = isFormChanged;
 
   return {
+    ...formRef.current,
     validateCustomObject: onValidateCustomObject,
     getPlatformBasedFieldValue,
     formRef: formRef.current,

@@ -66,38 +66,6 @@ export default function App(props) {
       ) : (
         <ModalLoader isOpen transparent />
       )}
-      {/* <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/forget-password" component={ForgetPassword} />
-        <Route exact path="/verify-mail" component={VerifyMail} />
-        <Route exact path="/reset-password" component={ResetPassword} />
-        <Route exact path="/create-profile" component={CreateProfile} />
-        <Route exact path="/profile" component={Profile} />
-        <Route exact path="/unit-list" component={UnitListing} />
-        <Route exact path="/unit-detail" component={UnitDetail} />
-        <Route exact path="/create-unit" component={CreateUnit} />
-        <Route exact path="/fms-locomotor" component={Locomotor} />
-        <Route exact path="/add-locomotor" component={AddLocomotor} />
-        <Route exact path="/create-lesson" component={CreateLesson} />
-        <Route exact path="/lesson-detail" component={LessonDetail} />
-        <Route
-          exact
-          path="/create-video-assesment"
-          component={CreateVideoAssesment}
-        />
-        <Route
-          exact
-          path="/create-peer-assesment"
-          component={CreatePeerAssesment}
-        />
-        <Route
-          exact
-          path="/create-student-assesment"
-          component={CreateStudentAssesment}
-        />
-        <Route exact path="/demo" component={Demo} />
-        <Route component={NotFoundPage} />
-      </Switch> */}
       <GlobalStyle />
     </div>
   );
