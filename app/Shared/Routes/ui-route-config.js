@@ -3,9 +3,11 @@
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import { LANDING_PAGE } from './routeConstants';
-const ENABLE_AUTH = false;
+
+const ENABLE_AUTH = true;
 // const ENABLE_RESTRICT_ROUTE = true;
 // const ENABLE_LOGIN_REDIRECT = true;
+// const ELSE = undefined;
 
 export default [
   {
@@ -28,13 +30,13 @@ export default [
     path: '/login',
     exact: true,
     component: Login,
-    loginRedirect: ENABLE_LOGIN_REDIRECT ? '/' : undefined,
+    loginRedirect: ENABLE_LOGIN_REDIRECT ? '/' : ELSE,
   },
   {
     path: '/forget-password',
     exact: true,
     component: ForgetPassword,
-    loginRedirect: ENABLE_LOGIN_REDIRECT ? '/' : undefined,
+    loginRedirect: ENABLE_LOGIN_REDIRECT ? '/' : ELSE,
   },
   {
     path: '/verify-mail',

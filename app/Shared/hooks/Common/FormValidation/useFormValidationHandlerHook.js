@@ -100,7 +100,17 @@ const useFormValidationHandlerHook = ({
       }
 
       if (key && isSetValue)
-        if (config.allowOnlyNumber)
+        if (
+          value !== '' &&
+          !Number.isNaN(+value) &&
+          !(config.allowValidNumber ? !!+value : true)
+        )
+          error =
+            typeof (config.message && config.message.allowValidNumber) !==
+            'undefined'
+              ? config.message && config.message.allowValidNumber
+              : 'Please enter valid number';
+        else if (config.allowOnlyNumber)
           if (!Number.isNaN(+value))
             setValues(_value => newObject(_value, { [key]: value }));
           else

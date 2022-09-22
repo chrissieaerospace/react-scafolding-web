@@ -116,9 +116,9 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     new WebpackPwaManifest({
-      name: 'Nextsports - content creater',
+      name: 'React Boilerplate',
       short_name: 'React BP',
-      description: 'Nextsports - content creater',
+      description: 'React Boilerplate',
       background_color: '#fafafa',
       theme_color: '#b1624d',
       inject: true,

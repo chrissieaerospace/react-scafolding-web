@@ -1,15 +1,28 @@
 import {
-  HOC as HocConfigure,
   commonConstants,
   // store,
 } from 'react-boilerplate-redux-saga-hoc';
+import { HOC_INITIAL_CONFIG_KEY } from 'react-boilerplate-redux-saga-hoc/utils';
 import * as ALL_API_END_POINTS from './apiEndPoints';
 import axios from '../axios';
+import { HOC } from '../config';
+
 export const { CALL, ON_SUCCESS, ON_ERROR, ON_UNMOUNT } = commonConstants;
 export const DASHBOARD_REDUCER_NAME = 'Dashboard';
+
 // eslint-disable-next-line prefer-object-spread
-const API_END_POINTS = Object.assign({}, ALL_API_END_POINTS);
-delete API_END_POINTS.dontResetOnLogout;
+const API_END_POINTS_CONFIG = Object.assign({}, ALL_API_END_POINTS);
+delete API_END_POINTS_CONFIG.dontResetOnLogout;
+
+const {
+  INITIAL_STATE,
+  REDUCER,
+  REDUCER_CONSTANT,
+  REDUCER_NAME,
+  API_END_POINTS,
+  DONT_RESET_REDUCER_KEYS,
+  AXIOS_INTERCEPTORS,
+} = HOC_INITIAL_CONFIG_KEY;
 
 const reducer = ({ type, defaultReducerHandler }) => {
   switch (type) {
@@ -22,33 +35,35 @@ const constantReducer = ({
   state,
   // action,
   // constants,
-  // initialState,
-  // resetState,
+  initialState,
+  resetState,
 }) => {
   switch (type) {
-    // case 'LOGOUT':
-    //   return { ...resetState, ...initialState };
+    case 'LOGOUT':
+      return { ...resetState, ...initialState };
     default:
       return state;
   }
 };
 
-const HOC = HocConfigure({
-  handlers: [],
-  useHocHook: true,
-});
-
 const useDashboardHoc = HOC({
-  initialState: {
-    isLoggedIn: false,
+  [INITIAL_STATE]: {
+    activeEvent: {},
+    eventToView: {},
+    showTeamProfile: false,
+    teamToView: {},
+    showGamerProfile: false,
+    gamerToView: {},
+    chatModalView: null,
+    eventToRegister: {},
+    showRegisterModal: false,
   },
-  // dontReset: {},
-  reducer,
-  constantReducer,
-  apiEndPoints: API_END_POINTS,
-  dontReset: ALL_API_END_POINTS.dontResetOnLogout,
-  name: DASHBOARD_REDUCER_NAME,
-  axiosInterceptors: axios,
+  [REDUCER]: reducer,
+  [REDUCER_CONSTANT]: constantReducer,
+  [API_END_POINTS]: API_END_POINTS_CONFIG,
+  [DONT_RESET_REDUCER_KEYS]: ALL_API_END_POINTS.dontResetOnLogout,
+  [REDUCER_NAME]: DASHBOARD_REDUCER_NAME,
+  [AXIOS_INTERCEPTORS]: axios,
 });
 
 export { useDashboardHoc };
