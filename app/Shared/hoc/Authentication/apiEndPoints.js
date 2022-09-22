@@ -20,14 +20,16 @@ const {
 
 // eslint-disable-next-line no-unused-vars
 const COMMON_REQUEST_RESPONSE_KEYS = {
+  /** Success Reponse handling */
   [API_RESPONSE_SUCCESS_STATUS_CODE_KEY]: 'code',
   [API_RESPONSE_SUCCESS_STATUS_CODES]: [900, 910],
   [API_RESPONSE_SUCCESS_MESSAGE_KEY]: 'message',
   [API_RESPONSE_SUCCESS_DATA_KEY]: 'data',
-  [API_RESPONSE_ERROR_DATA_KEY]: 'data',
+  /** Error Reponse handling */
   [API_RESPONSE_ERROR_STATUS_CODE_KEY]: '',
-  [API_RESPONSE_ERROR_MESSAGE_KEY]: 'error',
   [API_ERROR_HANDLER_STATUS_CODES]: [],
+  [API_RESPONSE_ERROR_MESSAGE_KEY]: 'error',
+  [API_RESPONSE_ERROR_DATA_KEY]: 'data',
 };
 
 /* ******  Authentication APIs Start ****** */
