@@ -1,4 +1,7 @@
-import { API_END_POINTS_CONFIG_KEYS } from 'react-boilerplate-redux-saga-hoc/utils';
+import {
+  API_END_POINTS_CONFIG_KEYS,
+  API_METHODS,
+} from 'react-boilerplate-redux-saga-hoc/constants';
 import { DASHBOARD_BASE_URL } from '../../utils/config';
 
 // const API_BASE_URL = `${BASE_URL}/api/v1/`;
@@ -21,6 +24,7 @@ const {
 
 // eslint-disable-next-line no-unused-vars
 const COMMON_REQUEST_RESPONSE_KEYS = {
+  [API_METHOD]: API_METHODS.GET,
   /** Success Reponse handling */
   [API_RESPONSE_SUCCESS_STATUS_CODE_KEY]: 'code',
   [API_RESPONSE_SUCCESS_STATUS_CODES]: [900, 910],
@@ -37,7 +41,7 @@ const COMMON_REQUEST_RESPONSE_KEYS = {
 export const GET_GRADES_LIST_API = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_DASHBOARD_BASE_URL}/creator-grades`,
-  [API_METHOD]: 'POST',
+  [API_METHOD]: API_METHODS.POST,
   [API_RESPONSE_SUCCESS_DATA_KEY]: '',
 };
 

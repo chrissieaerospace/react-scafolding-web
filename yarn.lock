@@ -10213,10 +10213,10 @@ react-beautiful-dnd@^13.1.0:
     redux "^4.0.4"
     use-memo-one "^1.1.1"
 
-react-boilerplate-redux-saga-hoc@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/react-boilerplate-redux-saga-hoc/-/react-boilerplate-redux-saga-hoc-1.7.1.tgz#c852e092c4fa3319e0c72cecfe225691314a0840"
-  integrity sha512-rAOV3LNR9Hi+f/3JvAW1BEbUUum67naa8Vs14J7+i/wG1kgA0y7vqCuvVnb82WtO9mU0WJDnMTZiMOVDIHNvsA==
+react-boilerplate-redux-saga-hoc@^1.7.15:
+  version "1.7.15"
+  resolved "https://registry.yarnpkg.com/react-boilerplate-redux-saga-hoc/-/react-boilerplate-redux-saga-hoc-1.7.15.tgz#f07c50f68cfdb6ea378d0e022262705f7214177e"
+  integrity sha512-z5c9Gqi7avzcb08CmmRvVSq865criBhOjaTgadK3CrRth9y8svdNVxh2VfXVWdHYd0F7qFGMRw4ZjST62rBPfA==
   dependencies:
     "@babel/runtime" "^7.11.2"
     fast-deep-equal "^3.1.3"

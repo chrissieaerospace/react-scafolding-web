@@ -1,4 +1,7 @@
-import { API_END_POINTS_CONFIG_KEYS } from 'react-boilerplate-redux-saga-hoc/utils';
+import {
+  API_END_POINTS_CONFIG_KEYS,
+  API_METHODS,
+} from 'react-boilerplate-redux-saga-hoc/constants';
 import { AUTH_BASE_URL } from '../../utils/config';
 
 // const API_BASE_URL = `${BASE_URL}/api/v1/`;
@@ -23,6 +26,7 @@ const {
 
 // eslint-disable-next-line no-unused-vars
 const COMMON_REQUEST_RESPONSE_KEYS = {
+  [API_METHOD]: API_METHODS.GET,
   /** Success Reponse handling */
   [API_RESPONSE_SUCCESS_STATUS_CODE_KEY]: 'code',
   [API_RESPONSE_SUCCESS_STATUS_CODES]: [900, 910],
@@ -39,34 +43,34 @@ const COMMON_REQUEST_RESPONSE_KEYS = {
 export const USER_LOGIN_API = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_AUTH_BASE_URL}/auth`,
-  [API_METHOD]: 'POST',
+  [API_METHOD]: API_METHODS.POST,
   [API_RESPONSE_SUCCESS_DATA_KEY]: '',
 };
 export const FORGOT_PASSWORD_API = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_AUTH_BASE_URL}/auth/forgot-password`,
-  [API_METHOD]: 'POST',
+  [API_METHOD]: API_METHODS.POST,
 };
 export const RESET_PASSWORD_API = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_AUTH_BASE_URL}/users/reset-password`,
-  [API_METHOD]: 'POST',
+  [API_METHOD]: API_METHODS.POST,
   [API_RESPONSE_SUCCESS_DATA_KEY]: 'data',
 };
 export const GET_USER_PROFILE_API = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_AUTH_BASE_URL}/users`,
-  [API_METHOD]: 'GET',
+  [API_METHOD]: API_METHODS.GET,
 };
 export const UPDATE_PROFILE = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_AUTH_BASE_URL}/users`,
-  [API_METHOD]: 'PUT',
+  [API_METHOD]: API_METHODS.PUT,
 };
 export const LOGOUT_API = {
   ...COMMON_REQUEST_RESPONSE_KEYS,
   [API_URL]: `${API_AUTH_BASE_URL}/auth/logout`,
-  [API_METHOD]: 'POST',
+  [API_METHOD]: API_METHODS.POST,
 };
 
 export const dontResetOnLogout = {};

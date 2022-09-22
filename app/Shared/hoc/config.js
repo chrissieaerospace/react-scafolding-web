@@ -5,7 +5,7 @@ import {
 import {
   HOC_MAIN_CLIENT_SIDE_CONFIG_DEFAULT,
   HOC_MAIN_CONFIG_KEY,
-} from 'react-boilerplate-redux-saga-hoc/utils';
+} from 'react-boilerplate-redux-saga-hoc/constants';
 
 const DEVELOPMENT = 'development';
 const EXTRA_CONFIG = {

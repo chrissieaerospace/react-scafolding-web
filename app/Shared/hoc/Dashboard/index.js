@@ -1,8 +1,7 @@
 import {
+  HOC_INITIAL_CONFIG_KEY,
   commonConstants,
-  // store,
-} from 'react-boilerplate-redux-saga-hoc';
-import { HOC_INITIAL_CONFIG_KEY } from 'react-boilerplate-redux-saga-hoc/utils';
+} from 'react-boilerplate-redux-saga-hoc/constants';
 import * as ALL_API_END_POINTS from './apiEndPoints';
 import axios from '../axios';
 import { HOC } from '../config';

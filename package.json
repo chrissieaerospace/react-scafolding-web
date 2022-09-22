@@ -87,7 +87,7 @@
     "prop-types": "15.7.2",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.0",
-    "react-boilerplate-redux-saga-hoc": "^1.7.1",
+    "react-boilerplate-redux-saga-hoc": "^1.7.15",
     "react-dom": "^18.2.0",
     "react-helmet": "6.0.0-beta",
     "react-intl": "2.8.0",
