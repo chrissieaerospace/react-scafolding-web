@@ -67,4 +67,3 @@ export const LOGOUT_API = {
 };
 
 export const dontResetOnLogout = {};
-/* ******  Newsletter APIs End ****** */
