@@ -45,4 +45,4 @@ export const GET_GRADES_LIST_API = {
   [API_RESPONSE_SUCCESS_DATA_KEY]: '',
 };
 
-export const dontResetOnLogout = {};
+export const DONT_RESET_ON_LOGOUT_API_KEYS = {};

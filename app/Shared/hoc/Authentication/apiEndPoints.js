@@ -18,9 +18,9 @@ const {
   API_RESPONSE_ERROR_STATUS_CODE_KEY,
   API_RESPONSE_ERROR_MESSAGE_KEY,
   API_ERROR_HANDLER_STATUS_CODES,
-  // DEBOUNCE_API_CALL_DELAY_IN_MS,
-  // IS_DEBOUNCE_API_CALL,
-  // AXIOS_INTERCEPTORS,
+  // DEBOUNCE_API_CALL_DELAY_IN_MS, /* This is required if you are using IS_DEBOUNCE_API_CALL */
+  // IS_DEBOUNCE_API_CALL, /* it can be used for search api  */
+  // AXIOS_INTERCEPTORS, /* New Axios instance can be passed here to seperate the token */
   // SAGA_EFFECT, /* every | latest */
 } = API_END_POINTS_CONFIG_KEYS;
 
@@ -73,4 +73,4 @@ export const LOGOUT_API = {
   [API_METHOD]: API_METHODS.POST,
 };
 
-export const dontResetOnLogout = {};
+export const DONT_RESET_ON_LOGOUT_API_KEYS = {};

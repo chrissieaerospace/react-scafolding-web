@@ -1,17 +1,19 @@
+import { newObject } from 'react-boilerplate-redux-saga-hoc/utils';
 import {
   HOC_INITIAL_CONFIG_KEY,
   commonConstants,
 } from 'react-boilerplate-redux-saga-hoc/constants';
-import * as ALL_API_END_POINTS from './apiEndPoints';
+
+import * as ALL_END_POINTS_CONFIG from './apiEndPoints';
 import axios from '../axios';
 import { HOC } from '../config';
 
 export const { CALL, ON_SUCCESS, ON_ERROR, ON_UNMOUNT } = commonConstants;
 export const DASHBOARD_REDUCER_NAME = 'Dashboard';
 
-// eslint-disable-next-line prefer-object-spread
-const API_END_POINTS_CONFIG = Object.assign({}, ALL_API_END_POINTS);
-delete API_END_POINTS_CONFIG.dontResetOnLogout;
+const { DONT_RESET_ON_LOGOUT_API_KEYS } = ALL_END_POINTS_CONFIG;
+const API_END_POINTS_CONFIG = newObject(ALL_END_POINTS_CONFIG);
+delete API_END_POINTS_CONFIG.DONT_RESET_ON_LOGOUT_API;
 
 const {
   INITIAL_STATE,
@@ -46,21 +48,11 @@ const constantReducer = ({
 };
 
 const useDashboardHoc = HOC({
-  [INITIAL_STATE]: {
-    activeEvent: {},
-    eventToView: {},
-    showTeamProfile: false,
-    teamToView: {},
-    showGamerProfile: false,
-    gamerToView: {},
-    chatModalView: null,
-    eventToRegister: {},
-    showRegisterModal: false,
-  },
+  [INITIAL_STATE]: {},
   [REDUCER]: reducer,
   [REDUCER_CONSTANT]: constantReducer,
   [API_END_POINTS]: API_END_POINTS_CONFIG,
-  [DONT_RESET_REDUCER_KEYS]: ALL_API_END_POINTS.dontResetOnLogout,
+  [DONT_RESET_REDUCER_KEYS]: DONT_RESET_ON_LOGOUT_API_KEYS,
   [REDUCER_NAME]: DASHBOARD_REDUCER_NAME,
   [AXIOS_INTERCEPTORS]: axios,
 });
