@@ -47,4 +47,7 @@ export const GET_GRADES_LIST_API = {
   [API_RESPONSE_SUCCESS_DATA_KEY]: '',
 };
 
+/* Important Please don't delete this line - start */
 export const DONT_RESET_ON_LOGOUT_API_KEYS = {};
+/* Important Please don't delete this line - end */
+
