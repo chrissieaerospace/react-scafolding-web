@@ -31,6 +31,7 @@ export default function App(props) {
     axios,
     actions: { GET_USER_PROFILE_API_CALL },
   } = useAuthenticationHoc();
+  useAuthenticationHoc();
   const { isLoggedIn } = useQuery(reducerName, {
     requiredKey: ['isLoggedIn'],
   });
