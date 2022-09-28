@@ -5,8 +5,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-underscore-dangle */
 import { useState, useCallback, useRef } from 'react';
-import { newObject } from 'react-boilerplate-redux-saga-hoc/utils';
-import { generateTimeStamp } from 'react-boilerplate-redux-saga-hoc';
+import { newObject,generateTimeStamp } from 'react-boilerplate-redux-saga-hoc/utils';
 // import isEqual from 'lodash/isEqual';
 import { ON_CHANGE, ON_BLUR, VALUE, ERROR } from './constants';
 import { trimStrings } from '../../../utils/utilFunctions';

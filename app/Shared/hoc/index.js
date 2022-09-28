@@ -7,7 +7,7 @@ export {
   useMutateReducer,
   newObject,
   toPromise,
-} from 'react-boilerplate-redux-saga-hoc';
+} from 'react-boilerplate-redux-saga-hoc/utils';
 export { CustomError } from './utils';
 export { useAuthenticationHoc } from './Authentication';
 export { useDashboardHoc } from './Dashboard';

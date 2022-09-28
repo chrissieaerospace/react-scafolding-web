@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Editor as TinyEditor } from '@tinymce/tinymce-react';
 import { useDashboardHoc } from 'Shared/hoc';
 
-// import { generateTimeStamp } from 'react-boilerplate-redux-saga-hoc';
+// import { generateTimeStamp } from 'react-boilerplate-redux-saga-hoc/utils';
 // import Axios from 'Shared/hoc/axios';
 export default ({
   error,

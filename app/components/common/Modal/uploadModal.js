@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import Button from 'components/common/Button';
 import del from 'assets/images/del-icon.png';
-import { Safe, typeOf } from 'react-boilerplate-redux-saga-hoc';
+import { Safe, typeOf } from 'react-boilerplate-redux-saga-hoc/utils';
 import {
   InboxOutlined,
   LoadingOutlined,

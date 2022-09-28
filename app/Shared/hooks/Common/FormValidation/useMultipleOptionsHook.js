@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { useCallback, useState, useRef } from 'react';
-import { newObject, typeOf } from 'react-boilerplate-redux-saga-hoc';
+import { newObject, typeOf } from 'react-boilerplate-redux-saga-hoc/utils';
 import cloneDeep from 'lodash/cloneDeep';
 
 const useMultipleOptionsHook = (initialValue = {}) => {
